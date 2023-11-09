@@ -9,11 +9,18 @@
     <title>vue3-webcomponent-wrapper Demo</title>
   </head>
   <body>
-    <demo-counter>
-      <div slot="header" class="test">Fill the header</div>
-      <div slot="header" class="test2">Fill the header (also)</div>
-      <demo-embedded slot="default"></demo-embedded>
-      <div slot="footer">Fill the footer</div>
-    </demo-counter>
+    <div>
+      <h2>WebComponent</h2>
+      <demo-counter>
+        <div slot="header" class="test">Fill the header</div>
+        <div slot="header" class="test2">Fill the header (also)</div>
+        <demo-embedded slot="default"></demo-embedded>
+        <div slot="footer">Fill the footer</div>
+      </demo-counter>
+    </div>
+    <div>
+      <h2>Laminar</h2>
+      <div id="app"></div>
+    </div>
   </body>
 </html>

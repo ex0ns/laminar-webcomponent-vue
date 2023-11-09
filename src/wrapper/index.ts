@@ -94,7 +94,8 @@ export function wrap(
         }
 
         if (hasChildrenChange) {
-          // this.syncSlots();
+          // this line is changing everything
+          this.syncSlots();
         }
       });
 

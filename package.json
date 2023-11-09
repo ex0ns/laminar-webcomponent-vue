@@ -2,8 +2,9 @@
   "name": "vue3-webcomponent-wrapper-demo",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.23.3",
+    "@scala-js/vite-plugin-scalajs": "^1.0.0",
     "@vitejs/plugin-vue": "^4.4.1",
     "@vue/compiler-sfc": "^3.3.7"
   }

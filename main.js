@@ -1,3 +1,6 @@
+import 'scalajs:main.js';
+
+// this is working, the node is correctly replaced
 import { createApp, h } from "vue";
 import { wrap } from "./src/wrapper/index.ts";
 import Counter from "./src/components/Counter.vue";
