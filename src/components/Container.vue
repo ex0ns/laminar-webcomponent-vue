@@ -1,5 +1,5 @@
 <template>
-  <div class="counter">
+  <div class="container">
     <div class="somethingelse">
       <slot name="header">Missing header</slot>
       <span>Right before the slot</span>
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.counter {
+.container {
   font-size: 2em;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

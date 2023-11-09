@@ -9,7 +9,7 @@ import com.raquo.laminar.tags.*
 
 object Counter:
   type Ref = dom.html.Element
-  val tag: HtmlTag[Ref] = htmlTag("demo-counter")
+  val tag: HtmlTag[Ref] = htmlTag("demo-container")
 
   def apply(mods: Mod[ReactiveHtmlElement[Ref]]*) =
     tag(mods)
