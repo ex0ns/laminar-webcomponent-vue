@@ -24,10 +24,10 @@ object Container:
 @main
 def main =
   val app = Container(
-    cls := "custom-class",
-    child <-- Val(div(cls:= "test", slot := "header", "Fill the header")),
-    child <-- Val(div(cls:= "test2", slot := "header", "Fill the header (also)")),
+    cls := "custom-class scala",
+    child <-- Val(div(cls:= "test scala", slot := "header", "Fill the header")),
+    child <-- Val(div(cls:= "test2 scala", slot := "header", "Fill the header (also)")),
     child <-- Val(Embed(slot := "default")),
-    child <-- Val(div(slot := "footer", "Fill the footer"))
+    child <-- Val(div(slot := "footer scala", "Fill the footer"))
   )
   renderOnDomContentLoaded(dom.document.querySelector("#app"), app)

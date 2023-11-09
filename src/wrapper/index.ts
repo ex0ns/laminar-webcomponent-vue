@@ -140,6 +140,10 @@ export function wrap(
     }
 
     syncSlots(): void {
+      console.log("========= ChildNodes =========")
+      console.log(this.childNodes);
+      console.log("========= End ChildNodes =========")
+
       this._slotChildren = toVNodes(this.childNodes, h).filter((t) => t && t.props?.slot);
       this._component?.$forceUpdate();
     }
@@ -169,6 +173,9 @@ export function wrap(
 
           const slots = groupBy(self._slotChildren, (t) => t.props.slot || "default");
           const slotFunctions = Object.fromEntries(Object.entries(slots).map(([k, v]) => [k, () => v]));
+          console.log("========= Slots =========")
+          console.log(slots)
+          console.log("========= End Slots =========")
           return h(componentObj, props, slotFunctions as unknown);
         },
         mounted() {
