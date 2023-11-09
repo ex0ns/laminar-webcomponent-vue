@@ -25,6 +25,9 @@ object Container:
 def main =
   val app = Container(
     cls := "custom-class",
-    child <-- Val(Embed(slot := "default"))
+    child <-- Val(div(cls:= "test", slot := "header", "Fill the header")),
+    child <-- Val(div(cls:= "test2", slot := "header", "Fill the header (also)")),
+    child <-- Val(Embed(slot := "default")),
+    child <-- Val(div(slot := "footer", "Fill the footer"))
   )
   renderOnDomContentLoaded(dom.document.querySelector("#app"), app)
