@@ -28,6 +28,6 @@ def main =
     child <-- Val(div(cls:= "test scala", slot := "header", "Fill the header")),
     child <-- Val(div(cls:= "test2 scala", slot := "header", "Fill the header (also)")),
     child <-- Val(Embed(slot := "default")),
-    child <-- Val(div(slot := "footer scala", "Fill the footer"))
+    child <-- Val(div(cls:= "scala", slot := "footer", "Fill the footer"))
   )
   renderOnDomContentLoaded(dom.document.querySelector("#app"), app)
