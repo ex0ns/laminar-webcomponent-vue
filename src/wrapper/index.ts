@@ -206,4 +206,3 @@ export function wrap(
 
   return CustomElement;
 }
-
