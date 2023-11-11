@@ -133,7 +133,6 @@ export function wrap(
       }
 
       this._props[camelized] = convertAttributeValue(value, key, camelizedPropsMap[camelized]);
-
       this._component?.$forceUpdate();
     }
 
@@ -143,18 +142,21 @@ export function wrap(
         const parent = dom.parentElement;
         const slots = dom?.getElementsByTagName("slot");
 
-        for(let i = 0; i < slots.length; i++) {
-          const name = slots[i].getAttribute("name")
+        [...slots].forEach(slot => {
+          const name = slot.getAttribute("name")
           const replacements = parent.querySelectorAll(`[slot=${name}]`);
 
           for(let j = 0; j < replacements.length; j++) {
             if(j == 0)
-              slots[i].replaceWith(replacements[j]);
-            else
-              replacements[j - 1].parentNode.insertBefore(replacements[j], replacements[j - 1].nextSibling)
+              slot.replaceWith(replacements[j]);
+            else {
+              const previous = replacements[j - 1]
+              previous.parentNode.insertBefore(replacements[j], previous.nextSibling)
+            }
           }
-        }
+        });
       }
+      this._component?.$forceUpdate();
     }
 
     syncInitialAttributes(): void {
@@ -176,7 +178,7 @@ export function wrap(
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const self = this;
       this._wrapper = createApp({
-        setup(props, { slots }) {
+        setup() {
           return () => {
             const props = Object.assign({}, self._props, eventProxies);
             delete props.dataVApp;
