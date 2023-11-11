@@ -11,7 +11,7 @@
 export default {
   props: { },
   emits: ["change"],
-  data() { },
+  data() { return {}; },
   watch: { }
 };
 </script>

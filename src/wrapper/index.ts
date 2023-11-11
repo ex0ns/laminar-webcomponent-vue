@@ -68,14 +68,12 @@ export function wrap(
     _component?: ComponentPublicInstance;
 
     _props!: KeyHash;
-    _slotChildren!: (VNode | null)[];
     _mounted = false;
 
     constructor() {
       super();
 
       this._props = {};
-      this._slotChildren = [];
 
       // Use MutationObserver to react to future attribute & slot content change
       const observer = new MutationObserver(mutations => {
@@ -140,12 +138,23 @@ export function wrap(
     }
 
     syncSlots(): void {
-      console.log("========= ChildNodes =========")
-      console.log(this.childNodes);
-      console.log("========= End ChildNodes =========")
+      const dom = this._component?.$el
+      if(dom instanceof HTMLElement) {
+        const parent = dom.parentElement;
+        const slots = dom?.getElementsByTagName("slot");
 
-      this._slotChildren = toVNodes(this.childNodes, h).filter((t) => t && t.props?.slot);
-      this._component?.$forceUpdate();
+        for(let i = 0; i < slots.length; i++) {
+          const name = slots[i].getAttribute("name")
+          const replacements = parent.querySelectorAll(`[slot=${name}]`);
+
+          for(let j = 0; j < replacements.length; j++) {
+            if(j == 0)
+              slots[i].replaceWith(replacements[j]);
+            else
+              replacements[j - 1].parentNode.insertBefore(replacements[j], replacements[j - 1].nextSibling)
+          }
+        }
+      }
     }
 
     syncInitialAttributes(): void {
@@ -167,16 +176,17 @@ export function wrap(
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const self = this;
       this._wrapper = createApp({
-        render() {
-          const props = Object.assign({}, self._props, eventProxies);
-          delete props.dataVApp;
+        setup(props, { slots }) {
+          return () => {
+            const props = Object.assign({}, self._props, eventProxies);
+            delete props.dataVApp;
 
-          const slots = groupBy(self._slotChildren, (t) => t.props.slot || "default");
-          const slotFunctions = Object.fromEntries(Object.entries(slots).map(([k, v]) => [k, () => v]));
-          console.log("========= Slots =========")
-          console.log(slots)
-          console.log("========= End Slots =========")
-          return h(componentObj, props, slotFunctions as unknown);
+            return h(componentObj, props, {
+              default: () => h("slot", { name: "default"}),
+              header: () => h("slot", { name: "header"}),
+              footer: () => h("slot", { name: "footer"})
+            });
+          }
         },
         mounted() {
           self._mounted = true;
@@ -191,7 +201,6 @@ export function wrap(
 
       // Mount the component
       this._component = this._wrapper.mount(this);
-
       if (options?.connectedCallback) {
         options.connectedCallback.bind(this)();
       }
