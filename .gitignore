@@ -22,5 +22,8 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+project/project
+.bloop
 .bsp
 target
+.metals

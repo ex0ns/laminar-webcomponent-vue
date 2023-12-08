@@ -8,7 +8,7 @@ export default defineConfig(({ command, mode }) => {
       minify: false
     },
     plugins: [
-      vue(),
+      vue({ customElement: true }),
       scalaJSPlugin()
     ]
    };
